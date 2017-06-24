@@ -1,68 +1,50 @@
 
-import {Observable, Observer} from 'rxjs';
+import RunBasics from './modules/basics';
 
-const completedString = "completed\r\n--------";
+document
+    .getElementById("button-run-basics")
+    .addEventListener("click", e => RunBasics());
 
-let numbers = [1, 5, 10];
-let source = Observable.from(numbers);
+document
+    .getElementById("button-circle-tail")
+    .addEventListener("click", onCircleDemoButtonClicked);
 
-class MyObserver implements Observer<number> {
-    next(data: number) {
-        console.log(data);
+let circle = 
+    document
+        .getElementById("circle");
+
+function onCircleDemoButtonClicked(e: MouseEvent) {
+    let sender = e.srcElement as HTMLButtonElement;
+    if(sender.value === "off") {
+        circle.style.visibility = "visible";
+        sender.innerText = "Stop circle demo";
+        sender.value = "on";
     }
-
-    error(e) {
-        console.log(e);
-    }
-
-    complete() {
-        console.log(completedString); 
+    else {
+        circle.style.visibility = "hidden";
+        sender.innerText = "Start circle demo";
+        sender.value = "off";
     }
 }
 
-// Using strongly type custom oberver:
-console.log("Using strongly typed observer...")
-source.subscribe(new MyObserver());
+/*
 
-// Using 3 NEC arrow functions
-console.log("Using NEC arrow functions...") 
-source.subscribe(
-    data => console.log(data), 
-    e => console.log(e), 
-    () => console.log(completedString));
+let bodyCircle = document.getElementById("circle");
+let mouseMoveObservable = 
+    Observable
+        .fromEvent(document, "mousemove")
+        .map((e: MouseEvent) => { return { x : e.clientX, y: e.clientY } })
+        .filter(value => value.y > 100)
+        .delay(200);
 
+function onBodyMouseMove(mousePos) {
+    bodyCircle.style.left = mousePos.x;
+    bodyCircle.style.top = mousePos.y;
+}
 
-let source2 = Observable.create(observer => {
-    for(let n of numbers) { 
-        if(n === 5)
-            observer.error("Oops\r\n---");
-
-       observer.next(n);
-    }
-    observer.complete();
-});
-
-console.log("using observable.create, with error condition...")
-source2.subscribe(
-    data => console.log(data), 
-    e => console.log(e), 
-    () => console.log(completedString));
-
-let source3 = Observable.create(observer => {
-    let index = 0;
-    let produceValue = () => {  
-        observer.next(numbers[index++]);
-        if(index < numbers.length)
-            setTimeout(produceValue, 2000);
-        else
-            observer.complete();        
-    }
-
-    produceValue();
-});
-
-console.log("using observable.create, with time delay...")
-source3.subscribe(
-    data => console.log(data), 
-    e => console.log(e), 
-    () => console.log(completedString));
+mouseMoveObservable.subscribe(
+    onBodyMouseMove, 
+    e => Logger.log(e), 
+    () => Logger.log(completedString)); 
+    
+*/

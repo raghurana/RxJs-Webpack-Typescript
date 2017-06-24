@@ -3,10 +3,38 @@
 <html>
     <head>
         <title>RxJs Learning</title>
+        <style>
+            #circle {
+                width: 20;
+                height: 20;
+                background-color: red;
+                border-radius: 50%;
+                position: absolute;
+                visibility: hidden;
+            }
+            .console {  
+                width: 60%;
+                height: 95%;
+                float: right;
+            }
+        </style>
     </head>
 
     <body>
         <div>Hello RxJs</div>
+        <textarea id="console-log" class="console"></textarea>
+
+        <p>
+            <h1>Observable Basics</h1>
+            <button id="button-run-basics">Run Basics Example</button>
+        </p>
+
+        <p>
+            <h1>Circle Tail Demo</h1>
+            <div id="circle"></div>     
+            <button id="button-circle-tail" value="off">Start Circle Demo</button>
+        </p>    
+
         <script src="app.js"></script>
     </body>
 
