@@ -1,3 +1,4 @@
+
 import {Observable, Observer} from 'rxjs';
 
 const completedString = "completed\r\n--------";
@@ -34,15 +35,34 @@ source.subscribe(
 let source2 = Observable.create(observer => {
     for(let n of numbers) { 
         if(n === 5)
-            observer.error("Oops");
-            
+            observer.error("Oops\r\n---");
+
        observer.next(n);
     }
     observer.complete();
 });
 
-console.log("using observable.create..")
+console.log("using observable.create, with error condition...")
 source2.subscribe(
+    data => console.log(data), 
+    e => console.log(e), 
+    () => console.log(completedString));
+
+let source3 = Observable.create(observer => {
+    let index = 0;
+    let produceValue = () => {  
+        observer.next(numbers[index++]);
+        if(index < numbers.length)
+            setTimeout(produceValue, 2000);
+        else
+            observer.complete();        
+    }
+
+    produceValue();
+});
+
+console.log("using observable.create, with time delay...")
+source3.subscribe(
     data => console.log(data), 
     e => console.log(e), 
     () => console.log(completedString));
