@@ -15,8 +15,8 @@ export class CircleDemo {
         this.mouseMoveSubscription =
             Observable
                 .fromEvent(document, "mousemove")
-                .map((e: MouseEvent) => { return new MousePoition(e.clientX, e.clientY) })
-                .filter(value => value.Y > 100)
+                .map((e: MouseEvent) => { return { x: e.clientX, y: e.clientY } })
+                .filter(value => value.y > 100)
                 .delay(delayInMills)
                 .subscribe(
                     e => this.onBodyMouseMove(e), 
@@ -28,27 +28,10 @@ export class CircleDemo {
         this.mouseMoveSubscription.unsubscribe();
     }
 
-    private onBodyMouseMove(position: MousePoition) {       
+    private onBodyMouseMove(position) {       
         Logger.log(JSON.stringify(position));
-        this.circleElement.style.left = position.X;
-        this.circleElement.style.top = position.Y;
+        
+        this.circleElement.style.left = position.x;
+        this.circleElement.style.top  = position.y;
     }
 }
-
-class MousePoition {
-    private x: any;
-    private y: any;
-
-    constructor(x: number, y: number) {
-        this.x = x;
-        this.y = y;
-    }
-
-    get X() {
-        return this.x;
-    }
-
-    get Y() {
-        return this.y;
-    }
-} 
