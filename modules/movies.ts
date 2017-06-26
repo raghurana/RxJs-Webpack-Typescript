@@ -1,17 +1,31 @@
-import {Logger} from './logger';
+import { Logger } from './logger';
+import { Observable } from 'rxjs';
 
-export default function fetchMovies() {
+export class MovieFetcher {
 
-    var xhr = new XMLHttpRequest();
+    static showMovies(url: string) {
+        this.getMovies(url)
+            .subscribe(this.logMovies);
+    }
 
-    xhr.addEventListener("load", () => {
-        let movies = JSON.parse(xhr.responseText);
+    private static getMovies(url: string) {
+        return Observable.create(observer => {
+            var xhr = new XMLHttpRequest();
+            xhr.addEventListener("load",
+                () => {
+                    observer.next(JSON.parse(xhr.responseText));
+                    observer.complete();
+                });
+
+            xhr.open("GET", url);
+            xhr.send();
+        });
+    }
+
+    private static logMovies(movies: any) {
         movies.forEach(element => {
             Logger.log(element.title);
         });
         Logger.log("---");
-    })
-
-    xhr.open("GET", "./assets/movies.json");
-    xhr.send();
+    }
 }
