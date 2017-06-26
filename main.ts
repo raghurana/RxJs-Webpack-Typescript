@@ -7,7 +7,7 @@ document
     .addEventListener("click", e => RunBasics());
 
 let circle = document.getElementById("circle");
-let circleDemo = new CircleDemo();
+let circleDemo = new CircleDemo(circle);
 
 document
     .getElementById("button-circle-tail")
@@ -20,7 +20,7 @@ function onCircleDemoButtonClicked(e: MouseEvent) {
         sender.innerText = "Stop circle demo";
         sender.value = "on";
 
-        circleDemo.startDemo(circle, 200);
+        circleDemo.startDemo(200);
     }
     else {
         circle.style.visibility = "hidden";
