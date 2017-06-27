@@ -39,7 +39,7 @@ function onCircleDemoButtonClicked(e: MouseEvent) {
 
 document
     .getElementById("button-movies-fetch")
-    .addEventListener("click", e => MovieFetcher.showMovies("./assets/moviess.json"));
+    .addEventListener("click", e => MovieFetcher.showMovies("./assets/moviessssss.json"));
 
 //-----------
 
