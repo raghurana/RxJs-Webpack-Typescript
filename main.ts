@@ -17,7 +17,7 @@ let circle     = document.getElementById("circle");
 let circleDemo = new CircleDemo(circle);
 
 function onCircleDemoButtonClicked(e: MouseEvent) {
-    let sender     = e.srcElement as HTMLButtonElement;
+    let sender = e.srcElement as HTMLButtonElement;
 
     if (sender.value === "off") {   
         circle.style.visibility = "visible";
@@ -39,7 +39,7 @@ function onCircleDemoButtonClicked(e: MouseEvent) {
 
 document
     .getElementById("button-movies-fetch")
-    .addEventListener("click", e => MovieFetcher.showMovies("./assets/moviessssss.json"));
+    .addEventListener("click", e => MovieFetcher.showMovies("./assets/moviess.json"));
 
 //-----------
 

@@ -34,7 +34,7 @@ export class MovieFetcher {
         Logger.log("---");
     }
 
-    private static retryStrategy({ noOfTries = 4, delayInMills = 500 }) {
+    private static retryStrategy({ noOfTries = 3, delayInMills = 1000 }) {
         return function(errors: Observable<any>) {
             return errors
                     .scan((acc, value) =>  {
